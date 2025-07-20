@@ -8,7 +8,6 @@ function Contact() {
     message: ''
   });
 
-  // Update form data state when inputs change
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -16,11 +15,9 @@ function Contact() {
     });
   };
 
-  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     alert(`Thank you, ${formData.name}! Your message has been submitted.`);
-    // Optionally reset form
     setFormData({ name: '', email: '', message: '' });
   };
 
@@ -54,7 +51,16 @@ function Contact() {
           style={{ display: 'block', margin: '10px 0', padding: '8px', width: '100%' }}
           required
         />
-        <button type="submit" style={{ padding: '10px 20px', backgroundColor: 'navy', color: 'white', border: 'none', cursor: 'pointer' }}>
+        <button
+          type="submit"
+          style={{
+            padding: '10px 20px',
+            backgroundColor: 'navy',
+            color: 'white',
+            border: 'none',
+            cursor: 'pointer'
+          }}
+        >
           Send Message
         </button>
       </form>

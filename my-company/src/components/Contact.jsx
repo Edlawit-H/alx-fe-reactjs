@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import PageWrapper from '../components/PageWrapper';
+import PageWrapper from './PageWrapper';  // adjust import since now same folder
 
 function Contact() {
   const [formData, setFormData] = useState({

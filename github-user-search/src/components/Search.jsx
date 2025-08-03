@@ -1,57 +1,95 @@
-import React from "react";
-import Search from "./components/Search";
+import React, { useState } from "react";
+import axios from "axios";
 
-function App() {
+function Search() {
+  const [username, setUsername] = useState("");
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();  // prevent page reload
+    setLoading(true);
+    setError(null);
+    setUserData(null);
+
+    try {
+      const response = await axios.get(`https://api.github.com/users/${username}`);
+      setUserData(response.data);
+    } catch (err) {
+      setError("Looks like we can't find the user.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    // Outer wrapper: fixed width, blue background, centered horizontally
-    <div
-      style={{
-        backgroundColor: "#f0f4f8",
-        width: "480px",           // fixed width or max width
-        minHeight: "100vh",
-        margin: "0 auto",         // center horizontally
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center", // vertical center inside viewport
-        padding: "20px",
-        fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-      }}
-    >
-      <header
-        style={{
-          backgroundColor: "navy",
-          color: "white",
-          padding: "15px 0",
-          textAlign: "center",
-          fontSize: "1.8rem",
-          fontWeight: "bold",
-          borderRadius: "8px",
-          marginBottom: "30px",
-          boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
-        }}
-      >
-        GitHub User Search
-      </header>
+    <div style={{ width: "100%", textAlign: "center" }}>
+      <h1 style={{ marginBottom: "20px", color: "navy" }}>
+        Welcome to GitHub User Search!
+      </h1>
 
-      <main
-        style={{
-          backgroundColor: "white",
-          padding: "30px",
-          borderRadius: "8px",
-          boxShadow: "0 2px 12px rgba(0,0,0,0.1)",
+      <form onSubmit={handleSubmit} style={{ display: "flex", marginBottom: "20px" }}>
+        <input
+          type="text"
+          placeholder="Enter GitHub username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+          style={{
+            flexGrow: 1,
+            padding: "10px",
+            fontSize: "1rem",
+            borderRadius: "4px 0 0 4px",
+            border: "1px solid #ccc",
+            outline: "none",
+          }}
+        />
+        <button
+          type="submit"
+          style={{
+            padding: "10px 20px",
+            fontSize: "1rem",
+            border: "none",
+            borderRadius: "0 4px 4px 0",
+            backgroundColor: "navy",
+            color: "white",
+            cursor: "pointer",
+            transition: "background-color 0.3s",
+          }}
+          onMouseEnter={(e) => (e.target.style.backgroundColor = "#001f4d")}
+          onMouseLeave={(e) => (e.target.style.backgroundColor = "navy")}
+        >
+          Search
+        </button>
+      </form>
 
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
+      {loading && <p>Loading...</p>}
 
-          minHeight: "300px",
-        }}
-      >
-        <Search />
-      </main>
+      {error && <p style={{ color: "red" }}>{error}</p>}
+
+      {userData && (
+        <div style={{ textAlign: "center" }}>
+          <img
+            src={userData.avatar_url}
+            alt={`${userData.login} avatar`}
+            width={120}
+            height={120}
+            style={{ borderRadius: "50%", marginBottom: "15px", boxShadow: "0 0 10px rgba(0,0,0,0.1)" }}
+          />
+          <h2 style={{ margin: "0 0 10px" }}>{userData.name || userData.login}</h2>
+          <a
+            href={userData.html_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: "navy", textDecoration: "none", fontWeight: "bold" }}
+          >
+            View GitHub Profile
+          </a>
+        </div>
+      )}
     </div>
   );
 }
 
-export default App;
+export default Search;

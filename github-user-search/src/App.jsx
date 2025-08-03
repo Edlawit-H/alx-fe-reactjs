@@ -32,6 +32,8 @@ function App() {
       >
         GitHub User Search
       </header>
+      <div className="text-red-500 font-bold">Tailwind is working!</div>
+
 
       <main
         style={{

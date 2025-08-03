@@ -1,12 +1,13 @@
-import axios from "axios";
+const BASE_URL = "https://api.github.com/search/users";
 
-const BASE_URL = "https://api.github.com/users";
+const githubService = {
+  searchUsers: async (query) => {
+    const response = await fetch(`${BASE_URL}?q=${encodeURIComponent(query)}`);
+    if (!response.ok) {
+      throw new Error("GitHub API request failed");
+    }
+    return response.json();
+  },
+};
 
-export async function fetchUserData(username) {
-  try {
-    const response = await axios.get(`${BASE_URL}/${username}`);
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
-}
+export default githubService;

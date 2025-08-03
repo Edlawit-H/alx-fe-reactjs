@@ -1,95 +1,73 @@
-import React, { useState } from "react";
-import { fetchUserData } from "../services/githubService";
+import { useState } from "react";
+import githubService from "../services/githubService";
 
-function Search() {
+export default function Search() {
   const [username, setUsername] = useState("");
-  const [userData, setUserData] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [location, setLocation] = useState("");
+  const [minRepos, setMinRepos] = useState("");
+  const [results, setResults] = useState([]);
   const [error, setError] = useState(null);
 
-  const handleSubmit = async (e) => {
+  const handleSearch = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setError(null);
-    setUserData(null);
-
     try {
-      const data = await fetchUserData(username);
-      setUserData(data);
-    } catch {
-      setError("Looks like we cant find the user.");
-    } finally {
-      setLoading(false);
+      const query = `${username} ${location && `location:${location}`} ${
+        minRepos && `repos:>=${minRepos}`
+      }`.trim();
+
+      const response = await githubService.searchUsers(query);
+      setResults(response.items);
+    } catch (err) {
+      setError("Failed to fetch users");
     }
   };
 
   return (
-    <div style={{ width: "100%", textAlign: "center" }}>
-      <h1 style={{ marginBottom: "20px", color: "navy" }}>
-        Welcome to GitHub User Search!
-      </h1>
-
-      <form onSubmit={handleSubmit} style={{ display: "flex", marginBottom: "20px" }}>
+    <div className="max-w-xl mx-auto p-4">
+      <form onSubmit={handleSearch} className="space-y-4 p-4 bg-white rounded shadow-md">
         <input
           type="text"
-          placeholder="Enter GitHub username"
+          placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          required
-          style={{
-            flexGrow: 1,
-            padding: "10px",
-            fontSize: "1rem",
-            borderRadius: "4px 0 0 4px",
-            border: "1px solid #ccc",
-            outline: "none",
-          }}
+          className="w-full p-2 border border-gray-300 rounded"
         />
-        <button
-          type="submit"
-          style={{
-            padding: "10px 20px",
-            fontSize: "1rem",
-            border: "none",
-            borderRadius: "0 4px 4px 0",
-            backgroundColor: "navy",
-            color: "white",
-            cursor: "pointer",
-            transition: "background-color 0.3s",
-          }}
-          onMouseEnter={(e) => (e.target.style.backgroundColor = "#001f4d")}
-          onMouseLeave={(e) => (e.target.style.backgroundColor = "navy")}
-        >
+        <input
+          type="text"
+          placeholder="Location"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+          className="w-full p-2 border border-gray-300 rounded"
+        />
+        <input
+          type="number"
+          placeholder="Minimum Repositories"
+          value={minRepos}
+          onChange={(e) => setMinRepos(e.target.value)}
+          className="w-full p-2 border border-gray-300 rounded"
+        />
+        <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
           Search
         </button>
       </form>
 
-      {loading && <p>Loading...</p>}
+      {error && <p className="text-red-500 mt-2">{error}</p>}
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
-
-      {userData && (
-        <div style={{ textAlign: "center" }}>
-          <img
-            src={userData.avatar_url}
-            alt={`${userData.login} avatar`}
-            width={120}
-            height={120}
-            style={{ borderRadius: "50%", marginBottom: "15px", boxShadow: "0 0 10px rgba(0,0,0,0.1)" }}
-          />
-          <h2 style={{ margin: "0 0 10px" }}>{userData.name || userData.login}</h2>
-          <a
-            href={userData.html_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ color: "navy", textDecoration: "none", fontWeight: "bold" }}
-          >
-            View GitHub Profile
-          </a>
+      {results.length > 0 && (
+        <div className="mt-6 space-y-4">
+          {results.map((user) => (
+            <div key={user.id} className="flex items-center gap-4 p-4 border rounded shadow">
+              <img src={user.avatar_url} alt={user.login} className="w-16 h-16 rounded-full" />
+              <div>
+                <a href={user.html_url} target="_blank" rel="noreferrer" className="text-blue-600 font-semibold">
+                  {user.login}
+                </a>
+                {/* Optional: show more info like location, repos using user API */}
+              </div>
+            </div>
+          ))}
         </div>
       )}
     </div>
   );
 }
-
-export default Search;

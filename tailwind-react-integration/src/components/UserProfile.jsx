@@ -1,5 +1,3 @@
-// src/components/UserProfile.jsx
-
 function UserProfile() {
   return (
     <div
@@ -30,7 +28,7 @@ function UserProfile() {
           cursor-pointer
         "
       >
-        John Doe
+        Edlawit Huluwork
       </h1>
       <p
         className="
@@ -40,7 +38,7 @@ function UserProfile() {
           text-center
         "
       >
-        Developer at Example Co. Loves to write code and explore new technologies.
+        Developer at Google Co. Loves to write code and explore new technologies.
       </p>
     </div>
   );

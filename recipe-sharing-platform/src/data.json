@@ -5,7 +5,7 @@
     "summary": "A classic Italian pasta dish with eggs, cheese, bacon, and black pepper.",
     "image": "https://via.placeholder.com/150",
     "ingredients": ["200g spaghetti", "100g pancetta", "2 eggs", "50g Parmesan", "Black pepper"],
-    "steps": ["Boil pasta", "Fry pancetta", "Mix eggs and cheese", "Combine all with pasta", "Season with pepper"]
+    "instructions": ["Boil pasta", "Fry pancetta", "Mix eggs and cheese", "Combine all with pasta", "Season with pepper"]
   },
   {
     "id": 2,
@@ -13,6 +13,6 @@
     "summary": "Chunks of grilled chicken (tikka) cooked in a smooth buttery & creamy tomato based gravy.",
     "image": "https://via.placeholder.com/150",
     "ingredients": ["500g chicken", "200g yogurt", "1 tbsp tikka masala", "1 onion", "200ml tomato puree"],
-    "steps": ["Marinate chicken", "Grill chicken", "Cook onion and spices", "Add tomato puree", "Simmer with chicken"]
+    "instructions": ["Marinate chicken", "Grill chicken", "Cook onion and spices", "Add tomato puree", "Simmer with chicken"]
   }
 ]

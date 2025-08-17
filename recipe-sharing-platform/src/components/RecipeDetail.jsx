@@ -48,11 +48,11 @@ const RecipeDetail = () => {
         </section>
       )}
 
-      {recipe.steps && (
+      {recipe.instructions && (
         <section>
-          <h2 className="text-2xl font-semibold mb-2">Cooking Steps</h2>
+          <h2 className="text-2xl font-semibold mb-2">Instructions</h2>
           <ol className="list-decimal list-inside text-gray-700">
-            {recipe.steps.map((step, idx) => (
+            {recipe.instructions.map((step, idx) => (
               <li key={idx} className="mb-2">{step}</li>
             ))}
           </ol>

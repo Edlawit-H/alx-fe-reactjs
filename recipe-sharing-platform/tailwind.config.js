@@ -1,11 +1,6 @@
 /** @type {import('tailwindcss').Config} */
-export default {
-  content: [
-    "./index.html",                 // Vite entry
-    "./src/**/*.{js,ts,jsx,tsx}",   // all React components
-  ],
-  theme: {
-    extend: {},
-  },
+module.exports = {
+  content: ["./public/index.html","./src/**/*.{js,jsx,ts,tsx}"],
+  theme: { extend: {} },
   plugins: [],
 }

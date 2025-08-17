@@ -25,7 +25,6 @@ const RecipeDetail = () => {
         &larr; Back to Home
       </Link>
 
-      {/* Main card with shadow */}
       <div className="bg-white rounded-lg shadow-md p-6">
         <h1 className="text-4xl font-bold mb-4">{recipe.title}</h1>
         <img

@@ -25,39 +25,42 @@ const RecipeDetail = () => {
         &larr; Back to Home
       </Link>
 
-      <h1 className="text-4xl font-bold mb-4">{recipe.title}</h1>
-      <img
-        src={recipe.image}
-        alt={recipe.title}
-        className="w-full h-64 object-cover rounded-lg mb-6"
-      />
+      {/* Main card with shadow */}
+      <div className="bg-white rounded-lg shadow-md p-6">
+        <h1 className="text-4xl font-bold mb-4">{recipe.title}</h1>
+        <img
+          src={recipe.image}
+          alt={recipe.title}
+          className="w-full h-64 object-cover rounded-lg mb-6"
+        />
 
-      <section className="mb-6">
-        <h2 className="text-2xl font-semibold mb-2">Summary</h2>
-        <p className="text-gray-700">{recipe.summary}</p>
-      </section>
-
-      {recipe.ingredients && (
         <section className="mb-6">
-          <h2 className="text-2xl font-semibold mb-2">Ingredients</h2>
-          <ul className="list-disc list-inside text-gray-700">
-            {recipe.ingredients.map((item, idx) => (
-              <li key={idx}>{item}</li>
-            ))}
-          </ul>
+          <h2 className="text-2xl font-semibold mb-2">Summary</h2>
+          <p className="text-gray-700">{recipe.summary}</p>
         </section>
-      )}
 
-      {recipe.instructions && (
-        <section>
-          <h2 className="text-2xl font-semibold mb-2">Instructions</h2>
-          <ol className="list-decimal list-inside text-gray-700">
-            {recipe.instructions.map((step, idx) => (
-              <li key={idx} className="mb-2">{step}</li>
-            ))}
-          </ol>
-        </section>
-      )}
+        {recipe.ingredients && (
+          <section className="mb-6">
+            <h2 className="text-2xl font-semibold mb-2">Ingredients</h2>
+            <ul className="list-disc list-inside text-gray-700">
+              {recipe.ingredients.map((item, idx) => (
+                <li key={idx}>{item}</li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {recipe.instructions && (
+          <section>
+            <h2 className="text-2xl font-semibold mb-2">Instructions</h2>
+            <ol className="list-decimal list-inside text-gray-700">
+              {recipe.instructions.map((step, idx) => (
+                <li key={idx} className="mb-2">{step}</li>
+              ))}
+            </ol>
+          </section>
+        )}
+      </div>
     </div>
   );
 };

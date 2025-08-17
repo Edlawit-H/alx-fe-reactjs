@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
-    "./index.html",                 // main entry point in Vite
+    "./index.html",                 // Vite entry
     "./src/**/*.{js,ts,jsx,tsx}",   // all React components
   ],
   theme: {

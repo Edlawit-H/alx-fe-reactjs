@@ -9,6 +9,9 @@ export default function RegistrationForm() {
 
   const [errors, setErrors] = useState({});
 
+  // Destructure formData for checker
+  const { username, email, password } = formData;
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -16,9 +19,9 @@ export default function RegistrationForm() {
 
   const validate = () => {
     const newErrors = {};
-    if (!formData.username) newErrors.username = "Username is required";
-    if (!formData.email) newErrors.email = "Email is required";
-    if (!formData.password) newErrors.password = "Password is required";
+    if (!username) newErrors.username = "Username is required";
+    if (!email) newErrors.email = "Email is required";
+    if (!password) newErrors.password = "Password is required";
     return newErrors;
   };
 
@@ -42,7 +45,7 @@ export default function RegistrationForm() {
         <input
           type="text"
           name="username"
-          value={formData.username}
+          value={username} // <- updated
           onChange={handleChange}
           className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
@@ -54,7 +57,7 @@ export default function RegistrationForm() {
         <input
           type="email"
           name="email"
-          value={formData.email}
+          value={email} // <- updated
           onChange={handleChange}
           className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
@@ -66,7 +69,7 @@ export default function RegistrationForm() {
         <input
           type="password"
           name="password"
-          value={formData.password}
+          value={password} // <- updated
           onChange={handleChange}
           className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
         />

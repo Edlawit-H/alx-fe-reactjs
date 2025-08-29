@@ -1,4 +1,4 @@
-import { Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Profile from "./components/Profile";
@@ -10,7 +10,7 @@ export default function App() {
   const isAuthenticated = false; // set to true to test protected routes
 
   return (
-    <div>
+    <BrowserRouter>
       {/* Navbar */}
       <nav>
         <Link to="/">Home</Link>
@@ -40,6 +40,6 @@ export default function App() {
         {/* Login */}
         <Route path="/login" element={<Login />} />
       </Routes>
-    </div>
+    </BrowserRouter>
   );
 }

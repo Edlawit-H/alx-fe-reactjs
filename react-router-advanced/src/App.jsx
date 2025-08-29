@@ -1,4 +1,4 @@
-import { Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Profile from "./pages/Profile";
@@ -6,13 +6,13 @@ import ProfileDetails from "./pages/ProfileDetails";
 import ProfileSettings from "./pages/ProfileSettings";
 import BlogPost from "./pages/BlogPost";
 import Login from "./pages/Login";
-import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedRoute from "./ProtectedRoute";
 
 export default function App() {
   const isAuthenticated = false; // change to true to test protected routes
 
   return (
-    <div>
+    <BrowserRouter>
       <nav>
         <Link to="/">Home</Link>
         <Link to="/about">About</Link>
@@ -42,6 +42,6 @@ export default function App() {
 
         <Route path="/login" element={<Login />} />
       </Routes>
-    </div>
+    </BrowserRouter>
   );
 }
